@@ -36,3 +36,10 @@ RUN tar -xf phpMyAdmin-5.1.0-english.tar.gz && rm -rf phpMyAdmin-5.1.0-english.t
 RUN mv phpMyAdmin-5.1.0-english phpmyadmin
 
 COPY ./srcs/config.inc.php phpmyadmin
+
+RUN wget --no-check-certificate https://wordpress.org/latest.tar.gz
+
+RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz 
+
+COPY ./srcs/wp-config.php /var/www/localhost/wordpress
+
