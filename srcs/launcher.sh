@@ -1,6 +1,6 @@
-service nginx start;
-service php7.3-fpm start;
+#service nginx start;
 service mysql start;
+#service php7.3-fpm start;
 
 echo "CREATE DATABASE wordpress;" | mysql -u root --skip-password;
 
@@ -11,8 +11,9 @@ echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password;
 
 echo "update mysql.user set plugin='' where user='root';" | mysql -u root --skip-password;
 
-service nginx restart;
+service nginx start;
 
-service php7.3-fpm restart;
+service php7.3-fpm start;
 
+#sleep infinity
 bash

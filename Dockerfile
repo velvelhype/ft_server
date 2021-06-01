@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	nginx wget mariadb-server openssl \
+	nginx wget mariadb-server sysvinit-utils openssl\
 	php-fpm \
 	php-cgi \
 	php-common \
@@ -27,3 +27,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY ./srcs/launcher.sh ./
 CMD bash launcher.sh
+
+#RUN wget --no-check-certificate https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-english.tar.gz
+RUN wget --no-check-certificate https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-english.tar.gz
+
+RUN tar -xf phpMyAdmin-5.1.0-english.tar.gz && rm -rf phpMyAdmin-5.1.0-english.tar.gz
+
+RUN mv phpMyAdmin-5.1.0-english phpmyadmin
+
+COPY ./srcs/config.inc.php phpmyadmin
