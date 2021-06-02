@@ -15,20 +15,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	php-bcmath \
     php-gd
 
-    RUN mkdir /var/www/localhost
-    COPY srcs/localhost /etc/nginx/sites-available
-    RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
-    WORKDIR /var/www/localhost
-    RUN openssl req -x509 \
-        -nodes -days 30 \
-        -subj "/C=JP" \
-        -newkey rsa:2048 \
-        -keyout /etc/ssl/ssl-k.key -out /etc/ssl/ssl-c.crt;
+RUN mkdir /var/www/localhost
+
+COPY srcs/localhost /etc/nginx/sites-available
+
+RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
+
+WORKDIR /var/www/localhost
+
+RUN openssl req -x509 \
+    -nodes -days 30 \
+    -subj "/C=JP" \
+    -newkey rsa:2048 \
+    -keyout /etc/ssl/ssl-k.key -out /etc/ssl/ssl-c.crt;
 
 COPY ./srcs/launcher.sh ./
+
 CMD bash launcher.sh
 
-#RUN wget --no-check-certificate https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-english.tar.gz
 RUN wget --no-check-certificate https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-english.tar.gz
 
 RUN tar -xf phpMyAdmin-5.1.0-english.tar.gz && rm -rf phpMyAdmin-5.1.0-english.tar.gz
@@ -42,4 +46,3 @@ RUN wget --no-check-certificate https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz 
 
 COPY ./srcs/wp-config.php /var/www/localhost/wordpress
-

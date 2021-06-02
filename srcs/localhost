@@ -17,7 +17,7 @@ server
     ssl_certificate_key /etc/ssl/ssl-k.key;
 
     root /var/www/localhost;
-    autoindex on;
+    autoindex off;
 
     index index.html index.htm index.nginx-debian.html  index.php;
 
@@ -25,6 +25,7 @@ server
     {
         try_files $uri $uri/ =404;
     }
+
     location ~ \.php$ 
     {
         include snippets/fastcgi-php.conf;

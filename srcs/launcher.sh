@@ -1,6 +1,4 @@
-#service nginx start;
 service mysql start;
-#service php7.3-fpm start;
 
 echo "CREATE DATABASE wordpress;" | mysql -u root --skip-password;
 
@@ -15,5 +13,4 @@ service nginx start;
 
 service php7.3-fpm start;
 
-#sleep infinity
 bash
