@@ -13,4 +13,5 @@ service nginx start;
 
 service php7.3-fpm start;
 
-bash
+#bash
+tail -f

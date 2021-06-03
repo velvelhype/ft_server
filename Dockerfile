@@ -31,6 +31,7 @@ RUN openssl req -x509 \
 
 COPY ./srcs/launcher.sh ./
 
+RUN chmod +x  launcher.sh
 CMD bash launcher.sh
 
 RUN wget --no-check-certificate https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-english.tar.gz
@@ -46,3 +47,5 @@ RUN wget --no-check-certificate https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz 
 
 COPY ./srcs/wp-config.php /var/www/localhost/wordpress
+
+RUN chown -R www-data:www-data *
